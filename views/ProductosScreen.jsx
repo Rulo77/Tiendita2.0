@@ -3,7 +3,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import {getProductos, deleteProducto} from '../api';
 import RenderListaComponent from '../components/RenderListaComponent'
-
+import { AlertaConCancel } from '../components/AlertComponent';
 
 const ProductosScreen = ({navigation}) => {
 
@@ -29,7 +29,7 @@ const ProductosScreen = ({navigation}) => {
   
   const borrar = async (id) => {
     await deleteProducto(id)
-    navigation.navigate('home')
+    navigation.navigate('Menu')
    };
 
 const renderItems = useCallback(
@@ -59,7 +59,7 @@ const renderItems = useCallback(
             }
 
             onPress={
-                () => alertaMensaje(item._id)
+                () => AlertaConCancel("Alerta de seguridad", "seguro que deseas eliminar este producto",()=> borrar(item._id))
         }>
             <Text style={
                 styles.textBoton

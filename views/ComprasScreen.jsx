@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList,TouchableHighlight, TextInput, ActivityIndicator } from 'react-native'
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState, useCallback, useRef} from 'react'
 import { getProductos } from '../api';
 import {Alerta} from '../components/AlertComponent';
 import RenderListaComponent from '../components/RenderListaComponent';
@@ -25,7 +25,7 @@ const ComprasScreen = ({navigation}) => {
 
   const comprar = async () => {
     if (pago === null || pago.trim() == "") {
-      Alerta('Error', "Deves ingresar el dinero recivido", ()=>{return} )
+      Alerta('Error', "Deves ingresar el dinero recivido", ()=>{pagoInput.current.focus()} )
     }
     if (listaProductos !== [] && suma !== 0 && pago !== null && pago.trim() !== "" ) {
         if (pago >= suma) {
@@ -80,6 +80,7 @@ const keyExtractor= useCallback(
   (item) => item._id.toString(),[]
 );
 
+const pagoInput = useRef(null)
 
 return (
   <View style={
@@ -122,12 +123,14 @@ return (
           <TextInput style={
                   styles.input
               }
-           
+              
               placeholderTextColor="#d3d3d3"
               placeholder="dinero recivido"
               keyboardType="numeric"
               onChangeText={setpago}
-              value={pago}/>
+              value={pago}
+              ref= {pagoInput}
+              />
           <TouchableHighlight style={
                   styles.boton
               }
@@ -197,10 +200,6 @@ compra: {
   marginBottom: 10,
   alignItems: 'center'
 
-},
-colorw: {
-  color: 'black',
-  marginEnd: 15
 },
 blanco:{
   height: 215
