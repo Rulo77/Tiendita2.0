@@ -55,3 +55,8 @@ export const updateProducto = async (Producto, id) => {
         console.log(e);
     }
 }
+
+export const getGanancia = async () => {
+    const res = await fetch(`${url}/ganancia`);
+    return await res.json()
+}
