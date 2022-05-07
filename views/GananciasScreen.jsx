@@ -1,19 +1,37 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { getGanancia } from '../api';
+import moment from 'moment'
 
 
 const GananciasScreen = () => {
-  const ganancias= [{_id:1223,'nombre':'Raul'},{_id:6645,'nombre':'Brenda'}]
+   const [ganancia, setganancia] = useState([])  
+   const [loader, setloader] = useState(true);
+
+   useEffect(() => {
+    (async () => {
+      const data = await getGanancia()
+      setganancia(data)
+  
+      setloader(false)
+      })()
+   }, [])
+ 
+
+
+  
+ 
   return (
     <View style={styles.pantalla}>
       <FlatList 
-      data={ganancias}
+      data={ganancia}
       keyExtractor={(item)=> item._id}
       renderItem={({item})=>{
          return(
            <View style={styles.items}>
-           <Text>{item._id}</Text>
-            <Text>{item.nombre}</Text>
+         <Text> {item.fecha}</Text>
+
+           <Text>Ganancia total: $ {item.ganancia_del_dia}</Text>
            </View>
          )
       }     

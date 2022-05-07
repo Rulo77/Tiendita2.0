@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, FlatList, Button } from 'react-native'
 import React from 'react'
 import { Alerta } from '../components/AlertComponent';
+import { createNewGanancia, getGananciaByfecha } from '../api';
+import moment from 'moment';
 
 const TiquetScreen = ({route, navigation}) => {
   const {listaProductos, suma, pago} = route.params;
+
   return (
     <View style={
       styles.pantalla
@@ -45,7 +48,19 @@ const TiquetScreen = ({route, navigation}) => {
           } </Text>
       </View>
       <Button title='aceptar'
-          onPress={()=>Alerta("Compra exitosa","Gracias por su compra, vuelva pronto", () => {
+          onPress={()=>Alerta("Compra exitosa","Gracias por su compra, vuelva pronto", async () => {
+              const date= new Date()
+              const fecha= moment(date).format('DD-MM-YYYY');
+             const gananciaObtenida= await getGananciaByfecha(fecha)
+              console.log(moment(date).format('DD-MM-YYYY'))
+              let ganancia
+              if(gananciaObtenida.ganancia_del_dia!==null){
+                ganancia= {"ganancia_del_dia":gananciaObtenida.ganancia_del_dia+suma,fecha,"productosVendididos":listaProductos}
+              }
+              else{
+                ganancia= {"ganancia_del_dia":suma,fecha,"productosVendididos":listaProductos}
+              }
+              await createNewGanancia(ganancia)
             navigation.navigate('Menu')
         })} with='50%'/>
 

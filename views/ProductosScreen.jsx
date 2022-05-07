@@ -21,7 +21,7 @@ const ProductosScreen = ({navigation}) => {
       setloader(false)
       })()
   
-  }, []);
+  }, [isfocus]);
 
   const actualizarProducto = (producto_id) => {
     navigation.navigate("Editar", {id: producto_id})

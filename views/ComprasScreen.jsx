@@ -4,7 +4,7 @@ import { getProductos } from '../api';
 import {Alerta} from '../components/AlertComponent';
 import RenderListaComponent from '../components/RenderListaComponent';
 import LIstaDeComprasComponent from '../components/ListaDeComprasComponent';
-import {updateProducto} from '../api'
+import {updateProducto, } from '../api'
 
 const ComprasScreen = ({navigation}) => {
   
