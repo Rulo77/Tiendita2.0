@@ -8,8 +8,8 @@ import {getProducto, updateProducto} from '../api'
 const EditarScreen = ({route, navigation}) => {
   const [loader, setloader] = useState(true);
   const [producto, setproducto] = useState({
-    categoria:'',
-    nombre: '',
+    categoria:null,
+    nombre: null,
     precio: null,
     stock: null
   });
@@ -43,7 +43,7 @@ const EditarScreen = ({route, navigation}) => {
   {loader ? <ActivityIndicator size="large" color="#808080" /> : <View >
     <Controller 
     control={control}
-    rules={{required:true,}}
+   
     render={({field:{onChange, value=producto.categoria}})=>(
       <View style={
         styles.container
@@ -63,10 +63,10 @@ const EditarScreen = ({route, navigation}) => {
     )}
      name='categoria'
     />
-    {errors.categoria && <Text style={styles.error}>* Categoria es requirida.</Text>}
+   
       <Controller 
     control={control}
-    rules={{required:true,}}
+    
     render={({field:{onChange, value=producto.nombre}})=>(
       <View style={
         styles.container
@@ -86,10 +86,10 @@ const EditarScreen = ({route, navigation}) => {
     )}
      name='nombre'
     />
-    {errors.nombre ? <Text style={styles.error}>*El nombre del Producto es requiro.</Text>:<></>}
+   
       <Controller 
     control={control}
-    rules={{required:true,}}
+   
     render={({field:{onChange, value=producto.precio+''}})=>(
       <View style={
         styles.container
@@ -110,10 +110,10 @@ const EditarScreen = ({route, navigation}) => {
     )}
      name='precio'
     />
-{errors.precio ? <Text style={styles.error}>*El precio es requiro.</Text>:<></>}
+
       <Controller 
     control={control}
-    rules={{required:true,}}
+
     render={({field:{onChange, value=producto.stock+""}})=>(
       <View style={
         styles.container
@@ -134,8 +134,8 @@ const EditarScreen = ({route, navigation}) => {
     )}
      name='stock'
     />
-      {errors.stock ? <Text style={styles.error}>*La cantidad de Producto es requiro.</Text>:<></>}
-    <Button title="Agregar" onPress={handleSubmit(onSubmit)} />
+     
+    <Button title="Actualizar" onPress={handleSubmit(onSubmit)} />
   </View>}
   </View>
 )

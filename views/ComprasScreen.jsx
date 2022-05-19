@@ -48,7 +48,6 @@ const handleSuma = (item) => {
     } else {
         setsuma(suma + item.precio)
         const index = listaProductos.findIndex((producto) => producto._id === item._id)
-
         if (index === -1) {
             let stock_ac = item.stock;
             setlistaProductos([
